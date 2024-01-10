@@ -88,3 +88,23 @@ class QASearcher:
         model_name="sentence-transformers/paraphrase-MiniLM-L6-v2",
     ):
         self.embedder = QAEmbedder(model_name=model_name)
+
+    def get_question_embeddings(self, questions):
+        """
+        Gets the embeddings for the questions in 'context'.
+
+        Parameter
+        ---------
+        questions: list or str
+            List of strings defining the questions to be embedded
+
+        Returns
+        -------
+        question_embeddings: torch.Tensor
+            The question embeddings
+        """
+        question_embeddings = self.embedder.get_embeddings(questions)
+        question_embeddings = torch.nn.functional.normalize(
+            question_embeddings, p=2, dim=1
+        )
+        return question_embeddings.transpose(0, 1)
