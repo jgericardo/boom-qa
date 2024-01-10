@@ -40,6 +40,47 @@ class QAEmbedder:
 
         return pooled_embedding
 
+    def get_embeddings(self, questions, batch=32):
+        """
+        Get the corresponding embeddings for a set of input questions.
+
+        Parameters
+        ----------
+        questions: list or str
+            List of strings of the questions to embed
+        batch: int
+            The number of questions to process at a time
+
+        Returns
+        -------
+        question_embeddings: torch.Tensor
+            The embeddings of all the questions
+        """
+        question_embeddings = list()
+        for index in range(0, len(questions), batch):
+            # Tokenize sentences using the tokenizer
+            encoded_input = self.tokenizer(
+                questions[index : index + batch],
+                padding=True,
+                truncation=True,
+                return_tensors="pt",
+            )
+
+            # Compute token embeddings
+            with torch.no_grad():
+                model_output = self.model(**encoded_input)
+
+            # Perform mean pooling
+            batch_embeddings = self._masked_mean_pooling(
+                model_output=model_output,
+                encoded_input=encoded_input["attention_mask"],
+            )
+            question_embeddings.append(batch_embeddings)
+
+        # Combine batches of question embeddings
+        question_embeddings = torch.cat(question_embeddings, dim=0)
+        return question_embeddings
+
 
 class QASearcher:
     pass
