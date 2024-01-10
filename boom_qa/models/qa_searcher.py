@@ -108,3 +108,19 @@ class QASearcher:
             question_embeddings, p=2, dim=1
         )
         return question_embeddings.transpose(0, 1)
+
+    def set_context(self, questions, answers):
+        """
+        Sets the QA context to be used during search.
+
+        Parameters
+        ----------
+
+        questions: list or str
+            List of strings defining the questions to be embedded
+        answers: list or str
+            Best answer for each question in list of questions
+        """
+        self.answers = answers
+        self.questions = questions
+        self.question_embeddings = self.get_q_embeddings(questions)
