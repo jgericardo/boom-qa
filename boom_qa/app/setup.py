@@ -1,5 +1,5 @@
 """Setup module for REST API"""
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from starlette.middleware.cors import CORSMiddleware
 
 from boom_qa.models.qa_searcher import QASearcher
@@ -22,7 +22,7 @@ def read_alive():
 
 
 @app.post("/set_context")
-async def set_context(data):
+async def set_context(data: Request):
     """
     POST method that sets the QA context for search.
 
@@ -47,7 +47,7 @@ async def set_context(data):
 
 
 @app.post("/get_answer")
-async def get_answer(data):
+async def get_answer(data: Request):
     """
     POST method that gets the best question and answer in the set context.
 
