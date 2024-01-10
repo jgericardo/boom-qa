@@ -38,7 +38,7 @@ async def set_context(data: Request):
         Output message indicating search context is set.
     """
     data = await data.json()
-    qa_searcher.set_context_qa(
+    qa_searcher.set_context(
         data["questions"],
         data["answers"],
     )
