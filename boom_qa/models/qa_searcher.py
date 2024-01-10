@@ -123,7 +123,7 @@ class QASearcher:
         """
         self.answers = answers
         self.questions = questions
-        self.question_embeddings = self.get_q_embeddings(questions)
+        self.question_embeddings = self.get_question_embeddings(questions)
 
     def cosine_similarity(self, questions, batch=32):
         """
