@@ -8,7 +8,7 @@ app = application()
 if __name__ == "__main__":
     server = Server(
         Config(
-            "boom_qa.main:app",
+            "boom_qa.app.main:app",
             host="0.0.0.0",
             port=8000,
             use_colors=False,
