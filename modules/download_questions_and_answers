@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Define the dataset URL and directory name
+DATA_URL="https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json"
+DATASET_DIR="../data"
+DATASET_NAME="../data/squad-2.0"
+
+# Downloads the dataset to set directory name
+mkdir ${DATASET_DIR} && mkdir ${DATASET_NAME} &&\
+    wget --directory-prefix=${DATASET_NAME} ${DATA_URL}
