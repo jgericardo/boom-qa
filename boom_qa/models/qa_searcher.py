@@ -124,3 +124,39 @@ class QASearcher:
         self.answers = answers
         self.questions = questions
         self.question_embeddings = self.get_q_embeddings(questions)
+
+    def get_answers(self, questions, batch=32):
+        """
+        Gets the best answers in the stored 'context' for the given new
+        'questions'.
+
+        Parameters
+        ----------
+        questions: list or str
+            List of strings defining the questions to be embedded
+        batch: int
+            Number of questions to answer at a time
+
+        Returns
+        -------
+
+        A list of dictionaries containing the original question
+        ('original_question'), the most similar question in the context
+        ('best_question') and the associated answer ('best_answer').
+        """
+        similarity = self.cosine_similarity(questions, batch=batch)
+
+        response = list()
+        for index in range(similarity.shape[0]):
+            best_index = similarity[index].argmax()
+            best_question = self.questions[best_index]
+            best_answer = self.answers[best_index]
+
+            response.append(
+                {
+                    "orig_question": questions[index],
+                    "best_question": best_question,
+                    "best_answer": best_answer,
+                }
+            )
+        return response
