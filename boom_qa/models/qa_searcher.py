@@ -1,4 +1,5 @@
 """QA Answering model classes"""
+import torch
 from transformers import AutoModel, AutoTokenizer
 
 
