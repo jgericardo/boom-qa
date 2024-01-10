@@ -125,6 +125,33 @@ class QASearcher:
         self.questions = questions
         self.question_embeddings = self.get_q_embeddings(questions)
 
+    def cosine_similarity(self, questions, batch=32):
+        """
+        Gets the cosine similarity between the new questions and the 'context'
+        questions.
+
+        Parameters
+        ----------
+        questions: list or str
+            List of strings defining the questions to be embedded
+        batch: int
+            Performs the embedding job 'batch' questions at a time
+
+        Returns
+        -------
+        cosine_similarity_scores: torch.Tensor
+            The cosine similarity values
+        """
+        question_embeddings = self.embedder.get_embeddings(questions, batch=batch)
+        question_embeddings = torch.nn.functional.normalize(
+            question_embeddings, p=2, dim=1
+        )
+
+        cosine_similarity_scores = torch.mm(
+            question_embeddings, self.question_embeddings
+        )
+        return cosine_similarity_scores
+
     def get_answers(self, questions, batch=32):
         """
         Gets the best answers in the stored 'context' for the given new
