@@ -1,4 +1,5 @@
 """QA Answering model classes"""
+from transformers import AutoModel, AutoTokenizer
 
 
 class QAEmbedder:
