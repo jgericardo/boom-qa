@@ -121,8 +121,8 @@ class QASearcher:
         answers: list or str
             Best answer for each question in list of questions
         """
-        self.answers = answers
         self.questions = questions
+        self.answers = answers
         self.question_embeddings = self.get_question_embeddings(questions)
 
     def cosine_similarity(self, questions, batch=32):
