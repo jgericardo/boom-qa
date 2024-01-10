@@ -73,7 +73,7 @@ class QAEmbedder:
             # Perform mean pooling
             batch_embeddings = self._masked_mean_pooling(
                 model_output=model_output,
-                encoded_input=encoded_input["attention_mask"],
+                attention_mask=encoded_input["attention_mask"],
             )
             question_embeddings.append(batch_embeddings)
 
