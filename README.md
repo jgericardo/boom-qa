@@ -7,6 +7,7 @@ A question-answering model application built using FastAPI and Docker
 - Python version: `Python 3.11.4`
 - Virtual environment (pyenv): `pyenv 2.3.25`
 - Poetry: `1.6.1`
+- Docker: `24.0.5`
 
 If you have PyEnv installed, you may create a virtual environment from the project repo,
 
