@@ -64,6 +64,31 @@ response = requests.post(
     json=json_data,
 )
 
-# Sanity check
+# Sanity check: Should return "Search context is set."
 print(response.json())
+```
+
+To ask a question or a set of questions, you can send a request in a similar manner,
+
+```python
+import requests
+
+new_questions = [
+    "How many teams compete in the Premier League ?",
+    "When does the Premier League starts and finishes ?",
+    "Who has the highest number of goals in the Premier League ?",
+]
+
+json_data = {
+    "questions": new_questions,
+}
+
+response = requests.post(
+    "http://0.0.0.0:8000/get_answer",
+    json=json_data,
+)
+
+# Each output will contain the original question, closest (best question), and the corresponding answer
+for output in response.json():
+    print("\n".join(["{} : {}".format(key, value) for key,value in output.items()])+"\n")
 ```
